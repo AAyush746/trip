@@ -1,0 +1,786 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Triple Crown Restaurant & Coffee Bar | Dhulikhel</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        :root {
+            --primary: #8B1E3F;
+            --secondary: #D4A373;
+            --accent: #2C5F2D;
+            --dark: #1a1a1a;
+            --light: #F5F5DC;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #fafaf9;
+            overflow-x: hidden;
+        }
+        
+        .font-display {
+            font-family: 'Playfair Display', serif;
+        }
+        
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: var(--primary);
+            border-radius: 4px;
+        }
+        
+        /* Animations */
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        @keyframes slideIn {
+            from { transform: translateX(-100%); }
+            to { transform: translateX(0); }
+        }
+        
+        .animate-float {
+            animation: float 3s ease-in-out infinite;
+        }
+        
+        .animate-fade-in-up {
+            animation: fadeInUp 0.8s ease-out forwards;
+        }
+        
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        
+        .hero-gradient {
+            background: linear-gradient(135deg, rgba(139, 30, 63, 0.9) 0%, rgba(44, 95, 45, 0.8) 100%);
+        }
+        
+        .menu-card {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .menu-card:hover {
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: 0 20px 40px -5px rgba(0, 0, 0, 0.1);
+        }
+        
+        .review-card {
+            transition: all 0.5s ease;
+        }
+        
+        .tab-active {
+            background-color: var(--primary);
+            color: white;
+        }
+        
+        .mountain-bg {
+            background-image: url('https://images.unsplash.com/photo-1544735716-392fe2489ffa?q=80&w=2070&auto=format&fit=crop');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+        
+        .crown-icon {
+            filter: drop-shadow(0 4px 6px rgba(0,0,0,0.1));
+        }
+        
+        .star-rating {
+            color: #fbbf24;
+        }
+        
+        /* Nepali pattern overlay */
+        .pattern-overlay {
+            background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+        }
+        
+        .status-dot {
+            animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+        
+        .price-tag {
+            background: linear-gradient(135deg, #8B1E3F 0%, #6b1630 100%);
+        }
+    </style>
+</head>
+<body class="text-gray-800">
+
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 transition-all duration-300" id="navbar">
+        <div class="glass-panel shadow-sm">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex justify-between items-center h-20">
+                    <div class="flex items-center space-x-3">
+                        <div class="w-10 h-10 bg-gradient-to-br from-red-800 to-red-900 rounded-full flex items-center justify-center shadow-lg">
+                            <i data-lucide="crown" class="w-6 h-6 text-yellow-400"></i>
+                        </div>
+                        <div>
+                            <h1 class="font-display text-xl font-bold text-gray-900 leading-none">Triple Crown</h1>
+                            <p class="text-xs text-gray-500 tracking-wider">RESTAURANT & COFFEE BAR</p>
+                        </div>
+                    </div>
+                    
+                    <div class="hidden md:flex items-center space-x-8">
+                        <a href="#about" class="text-sm font-medium text-gray-700 hover:text-red-900 transition-colors">About</a>
+                        <a href="#menu" class="text-sm font-medium text-gray-700 hover:text-red-900 transition-colors">Menu</a>
+                        <a href="#reviews" class="text-sm font-medium text-gray-700 hover:text-red-900 transition-colors">Reviews</a>
+                        <a href="#location" class="text-sm font-medium text-gray-700 hover:text-red-900 transition-colors">Location</a>
+                        <button onclick="scrollToReserve()" class="bg-red-900 text-white px-6 py-2 rounded-full text-sm font-medium hover:bg-red-800 transition-all shadow-lg hover:shadow-xl transform hover:-translate-y-0.5">
+                            Contact Us
+                        </button>
+                    </div>
+                    
+                    <button class="md:hidden p-2" onclick="toggleMobileMenu()">
+                        <i data-lucide="menu" class="w-6 h-6"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Mobile Menu -->
+        <div id="mobileMenu" class="hidden md:hidden glass-panel border-t">
+            <div class="px-4 pt-2 pb-4 space-y-2">
+                <a href="#about" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:bg-gray-100">About</a>
+                <a href="#menu" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:bg-gray-100">Menu</a>
+                <a href="#reviews" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:bg-gray-100">Reviews</a>
+                <a href="#location" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:bg-gray-100">Location</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="relative min-h-screen flex items-center justify-center overflow-hidden mountain-bg">
+        <div class="absolute inset-0 hero-gradient pattern-overlay"></div>
+        <div class="absolute inset-0 bg-black/20"></div>
+        
+        <!-- Floating Elements -->
+        <div class="absolute top-32 left-10 w-20 h-20 bg-white/10 rounded-full blur-xl animate-float"></div>
+        <div class="absolute bottom-32 right-10 w-32 h-32 bg-yellow-400/20 rounded-full blur-2xl animate-float" style="animation-delay: 1s;"></div>
+        
+        <div class="relative z-10 text-center px-4 max-w-5xl mx-auto">
+            <div class="animate-fade-in-up">
+                <div class="inline-flex items-center space-x-2 bg-white/20 backdrop-blur-md rounded-full px-4 py-2 mb-6 border border-white/30">
+                    <span class="status-dot w-2 h-2 bg-green-400 rounded-full"></span>
+                    <span class="text-white text-sm font-medium" id="statusText">Open Now · Closes 9:30 PM</span>
+                </div>
+                
+                <h1 class="font-display text-5xl md:text-7xl lg:text-8xl font-bold text-white mb-4 leading-tight drop-shadow-2xl">
+                    Triple Crown
+                </h1>
+                <p class="text-xl md:text-2xl text-white/90 font-light mb-2 tracking-wide">Restaurant & Coffee Bar</p>
+                <p class="text-lg text-white/80 mb-8 font-light">ट्रिपल क्राउन रेष्टुरा</p>
+                
+                <div class="flex flex-wrap justify-center gap-4 mb-12">
+                    <div class="flex items-center space-x-2 bg-white/20 backdrop-blur-md rounded-full px-6 py-3 border border-white/30">
+                        <i data-lucide="star" class="w-5 h-5 text-yellow-400 fill-yellow-400"></i>
+                        <span class="text-white font-bold">4.2</span>
+                        <span class="text-white/80 text-sm">(272 reviews)</span>
+                    </div>
+                    <div class="flex items-center space-x-2 bg-white/20 backdrop-blur-md rounded-full px-6 py-3 border border-white/30">
+                        <i data-lucide="wallet" class="w-5 h-5 text-green-400"></i>
+                        <span class="text-white font-medium">Rs 1 – 500</span>
+                    </div>
+                    <div class="flex items-center space-x-2 bg-white/20 backdrop-blur-md rounded-full px-6 py-3 border border-white/30">
+                        <i data-lucide="utensils" class="w-5 h-5 text-orange-400"></i>
+                        <span class="text-white font-medium">Fast Food · Multi-Cuisine</span>
+                    </div>
+                </div>
+                
+                <div class="flex flex-wrap justify-center gap-4">
+                    <a href="#menu" class="bg-white text-red-900 px-8 py-4 rounded-full font-bold text-lg hover:bg-gray-100 transition-all shadow-2xl hover:shadow-xl transform hover:-translate-y-1 flex items-center space-x-2">
+                        <i data-lucide="book-open" class="w-5 h-5"></i>
+                        <span>View Menu</span>
+                    </a>
+                    <a href="tel:011-491430" class="bg-transparent border-2 border-white text-white px-8 py-4 rounded-full font-bold text-lg hover:bg-white/10 transition-all flex items-center space-x-2">
+                        <i data-lucide="phone" class="w-5 h-5"></i>
+                        <span>Call Now</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Scroll Indicator -->
+        <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
+            <i data-lucide="chevron-down" class="w-8 h-8 text-white/70"></i>
+        </div>
+    </section>
+
+    <!-- Quick Info Bar -->
+    <section class="bg-white shadow-lg relative z-20 -mt-2 rounded-t-3xl">
+        <div class="max-w-7xl mx-auto px-4 py-8">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="flex items-start space-x-4 p-4 rounded-2xl hover:bg-gray-50 transition-colors">
+                    <div class="w-12 h-12 bg-red-50 rounded-xl flex items-center justify-center flex-shrink-0">
+                        <i data-lucide="map-pin" class="w-6 h-6 text-red-900"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-semibold text-gray-900">Location</h3>
+                        <p class="text-sm text-gray-600 mt-1">Dhulikhel Chowk, Dhulikhel 45200<br>B.P. Highway Near Century Bank</p>
+                        <a href="#location" class="text-sm text-red-900 font-medium mt-2 inline-flex items-center hover:underline">
+                            Get Directions <i data-lucide="arrow-right" class="w-4 h-4 ml-1"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="flex items-start space-x-4 p-4 rounded-2xl hover:bg-gray-50 transition-colors">
+                    <div class="w-12 h-12 bg-green-50 rounded-xl flex items-center justify-center flex-shrink-0">
+                        <i data-lucide="clock" class="w-6 h-6 text-green-700"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-semibold text-gray-900">Hours</h3>
+                        <p class="text-sm text-gray-600 mt-1">Open Daily: 6:30 AM – 9:30 PM</p>
+                        <p class="text-xs text-green-600 font-medium mt-1" id="hoursStatus">Currently Open</p>
+                    </div>
+                </div>
+                
+                <div class="flex items-start space-x-4 p-4 rounded-2xl hover:bg-gray-50 transition-colors">
+                    <div class="w-12 h-12 bg-blue-50 rounded-xl flex items-center justify-center flex-shrink-0">
+                        <i data-lucide="phone-call" class="w-6 h-6 text-blue-700"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-semibold text-gray-900">Contact</h3>
+                        <p class="text-sm text-gray-600 mt-1">011-491430</p>
+                        <div class="flex space-x-2 mt-2">
+                            <span class="inline-flex items-center px-2 py-1 rounded-md bg-green-100 text-green-800 text-xs font-medium">Dine-in</span>
+                            <span class="inline-flex items-center px-2 py-1 rounded-md bg-blue-100 text-blue-800 text-xs font-medium">Takeaway</span>
+                            <span class="inline-flex items-center px-2 py-1 rounded-md bg-purple-100 text-purple-800 text-xs font-medium">Delivery</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-20 bg-stone-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                <div class="relative">
+                    <div class="absolute -top-4 -left-4 w-24 h-24 bg-red-900/10 rounded-full"></div>
+                    <div class="absolute -bottom-4 -right-4 w-32 h-32 bg-green-900/10 rounded-full"></div>
+                    <div class="relative rounded-3xl overflow-hidden shadow-2xl">
+                        <img src="https://kimi-web-img.moonshot.cn/img/media-cdn.tripadvisor.com/2fd2d22495863b082a5ab406df1618d2a36626de.jpg" alt="Triple Crown Logo" class="w-full h-auto object-cover">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent"></div>
+                    </div>
+                    <div class="absolute -bottom-6 -right-6 bg-white p-4 rounded-2xl shadow-xl">
+                        <div class="flex items-center space-x-2">
+                            <div class="flex -space-x-2">
+                                <div class="w-8 h-8 rounded-full bg-red-100 border-2 border-white flex items-center justify-center text-xs font-bold text-red-900">4.2</div>
+                            </div>
+                            <div>
+                                <p class="text-sm font-bold text-gray-900">272 Reviews</p>
+                                <p class="text-xs text-gray-500">Rated Excellent</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div>
+                    <div class="inline-flex items-center space-x-2 text-red-900 font-semibold mb-4">
+                        <span class="w-8 h-0.5 bg-red-900"></span>
+                        <span class="uppercase tracking-wider text-sm">About Us</span>
+                    </div>
+                    <h2 class="font-display text-4xl md:text-5xl font-bold text-gray-900 mb-6">
+                        A Taste of the Himalayas in Every Bite
+                    </h2>
+                    <p class="text-lg text-gray-600 mb-6 leading-relaxed">
+                        Located at the heart of Dhulikhel Chowk, Triple Crown Restaurant & Coffee Bar is your perfect stop on the B.P. Highway. Whether you're heading to Pokhara or exploring the ancient town of Dhulikhel, we offer a diverse culinary journey featuring <strong>Italian, Chinese, Indian, European, Asian, and traditional Nepalese</strong> cuisines.
+                    </p>
+                    <p class="text-gray-600 mb-8 leading-relaxed">
+                        Our property is well-maintained with a welcoming ambience, friendly staff, and surprisingly generous portions. From our unforgettable Biryani to our hearty breakfast options, every dish is crafted to fuel your mountain adventures.
+                    </p>
+                    
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="flex items-center space-x-3">
+                            <i data-lucide="check-circle" class="w-5 h-5 text-green-600"></i>
+                            <span class="text-gray-700 font-medium">Multi-Cuisine Menu</span>
+                        </div>
+                        <div class="flex items-center space-x-3">
+                            <i data-lucide="check-circle" class="w-5 h-5 text-green-600"></i>
+                            <span class="text-gray-700 font-medium">Mountain Views</span>
+                        </div>
+                        <div class="flex items-center space-x-3">
+                            <i data-lucide="check-circle" class="w-5 h-5 text-green-600"></i>
+                            <span class="text-gray-700 font-medium">Highway Stop</span>
+                        </div>
+                        <div class="flex items-center space-x-3">
+                            <i data-lucide="check-circle" class="w-5 h-5 text-green-600"></i>
+                            <span class="text-gray-700 font-medium">Budget Friendly</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Menu Section -->
+    <section id="menu" class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <div class="inline-flex items-center space-x-2 text-red-900 font-semibold mb-4">
+                    <span class="w-8 h-0.5 bg-red-900"></span>
+                    <span class="uppercase tracking-wider text-sm">Our Menu</span>
+                    <span class="w-8 h-0.5 bg-red-900"></span>
+                </div>
+                <h2 class="font-display text-4xl md:text-5xl font-bold text-gray-900 mb-4">Culinary Delights</h2>
+                <p class="text-gray-600 max-w-2xl mx-auto">From hearty breakfasts to flavorful dinners, explore our diverse range of cuisines crafted with care.</p>
+            </div>
+            
+            <!-- Menu Tabs -->
+            <div class="flex flex-wrap justify-center gap-2 mb-12">
+                <button onclick="switchMenu('all')" class="menu-tab tab-active px-6 py-3 rounded-full text-sm font-medium transition-all" data-category="all">All Items</button>
+                <button onclick="switchMenu('breakfast')" class="menu-tab px-6 py-3 rounded-full text-sm font-medium bg-gray-100 text-gray-700 hover:bg-gray-200 transition-all" data-category="breakfast">Breakfast</button>
+                <button onclick="switchMenu('mains')" class="menu-tab px-6 py-3 rounded-full text-sm font-medium bg-gray-100 text-gray-700 hover:bg-gray-200 transition-all" data-category="mains">Mains</button>
+                <button onclick="switchMenu('specials')" class="menu-tab px-6 py-3 rounded-full text-sm font-medium bg-gray-100 text-gray-700 hover:bg-gray-200 transition-all" data-category="specials">Specials</button>
+                <button onclick="switchMenu('beverages')" class="menu-tab px-6 py-3 rounded-full text-sm font-medium bg-gray-100 text-gray-700 hover:bg-gray-200 transition-all" data-category="beverages">Coffee & Drinks</button>
+            </div>
+            
+            <!-- Menu Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="menuGrid">
+                <!-- Menu items will be populated by JS -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Reviews Section -->
+    <section id="reviews" class="py-20 bg-stone-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <div class="inline-flex items-center space-x-2 text-red-900 font-semibold mb-4">
+                    <span class="w-8 h-0.5 bg-red-900"></span>
+                    <span class="uppercase tracking-wider text-sm">Testimonials</span>
+                    <span class="w-8 h-0.5 bg-red-900"></span>
+                </div>
+                <h2 class="font-display text-4xl md:text-5xl font-bold text-gray-900 mb-4">What Travelers Say</h2>
+                <div class="flex items-center justify-center space-x-2 mb-4">
+                    <div class="flex star-rating">
+                        <i data-lucide="star" class="w-6 h-6 fill-current"></i>
+                        <i data-lucide="star" class="w-6 h-6 fill-current"></i>
+                        <i data-lucide="star" class="w-6 h-6 fill-current"></i>
+                        <i data-lucide="star" class="w-6 h-6 fill-current"></i>
+                        <i data-lucide="star" class="w-6 h-6 fill-current text-gray-300"></i>
+                    </div>
+                    <span class="text-2xl font-bold text-gray-900">4.2</span>
+                    <span class="text-gray-500">/ 5.0</span>
+                </div>
+                <p class="text-gray-500 text-sm">Based on 272 reviews</p>
+            </div>
+            
+            <!-- Reviews Carousel -->
+            <div class="relative max-w-4xl mx-auto">
+                <div class="overflow-hidden rounded-3xl bg-white shadow-xl">
+                    <div class="p-8 md:p-12" id="reviewContainer">
+                        <!-- Reviews populated by JS -->
+                    </div>
+                </div>
+                
+                <div class="flex justify-center mt-8 space-x-3">
+                    <button onclick="prevReview()" class="w-12 h-12 rounded-full bg-white shadow-md flex items-center justify-center hover:bg-gray-50 transition-colors">
+                        <i data-lucide="chevron-left" class="w-6 h-6 text-gray-700"></i>
+                    </button>
+                    <button onclick="nextReview()" class="w-12 h-12 rounded-full bg-white shadow-md flex items-center justify-center hover:bg-gray-50 transition-colors">
+                        <i data-lucide="chevron-right" class="w-6 h-6 text-gray-700"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Location & Map -->
+    <section id="location" class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+                <div>
+                    <div class="inline-flex items-center space-x-2 text-red-900 font-semibold mb-4">
+                        <span class="w-8 h-0.5 bg-red-900"></span>
+                        <span class="uppercase tracking-wider text-sm">Find Us</span>
+                    </div>
+                    <h2 class="font-display text-4xl md:text-5xl font-bold text-gray-900 mb-6">Visit Dhulikhel</h2>
+                    <p class="text-gray-600 mb-8 leading-relaxed">
+                        Located at Dhulikhel Chowk along the B.P. Highway, we're easily accessible whether you're traveling from Kathmandu towards Pokhara or exploring the historic Newari town of Dhulikhel.
+                    </p>
+                    
+                    <div class="space-y-6">
+                        <div class="flex items-start space-x-4">
+                            <div class="w-12 h-12 bg-red-50 rounded-xl flex items-center justify-center flex-shrink-0">
+                                <i data-lucide="map-pin" class="w-6 h-6 text-red-900"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-gray-900">Address</h4>
+                                <p class="text-gray-600">Dhulikhel Chowk, Dhulikhel 45200, Nepal<br>B.P. Highway, Near Century Bank</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start space-x-4">
+                            <div class="w-12 h-12 bg-blue-50 rounded-xl flex items-center justify-center flex-shrink-0">
+                                <i data-lucide="navigation" class="w-6 h-6 text-blue-700"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-gray-900">Plus Code</h4>
+                                <p class="text-gray-600 font-mono">JHC3+59 Dhulikhel</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start space-x-4">
+                            <div class="w-12 h-12 bg-green-50 rounded-xl flex items-center justify-center flex-shrink-0">
+                                <i data-lucide="phone" class="w-6 h-6 text-green-700"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-gray-900">Phone</h4>
+                                <p class="text-gray-600">011-491430</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-8 flex flex-wrap gap-3">
+                        <a href="https://www.google.com/maps/search/?api=1&query=Triple+Crown+Restaurant+Dhulikhel" target="_blank" class="inline-flex items-center px-6 py-3 bg-red-900 text-white rounded-full font-medium hover:bg-red-800 transition-all shadow-lg">
+                            <i data-lucide="external-link" class="w-4 h-4 mr-2"></i>
+                            Open in Google Maps
+                        </a>
+                        <button onclick="shareLocation()" class="inline-flex items-center px-6 py-3 bg-gray-100 text-gray-700 rounded-full font-medium hover:bg-gray-200 transition-all">
+                            <i data-lucide="share-2" class="w-4 h-4 mr-2"></i>
+                            Share
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="relative rounded-3xl overflow-hidden shadow-2xl bg-gray-100 h-96 lg:h-auto">
+                    <iframe 
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3536.1234567890123!2d85.55!3d27.62!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMjfCsDM3JzEyLjAiTiA4NcKwMzMnMDAuMCJF!5e0!3m2!1sen!2snp!4v1234567890"
+                        width="100%" 
+                        height="100%" 
+                        style="border:0; filter: grayscale(20%) contrast(1.1);" 
+                        allowfullscreen="" 
+                        loading="lazy" 
+                        referrerpolicy="no-referrer-when-downgrade"
+                        class="absolute inset-0">
+                    </iframe>
+                    <div class="absolute bottom-4 left-4 right-4 bg-white/90 backdrop-blur-md rounded-xl p-4 shadow-lg">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <p class="font-semibold text-gray-900">Triple Crown Restaurant</p>
+                                <p class="text-sm text-gray-600">Dhulikhel Chowk, Nepal</p>
+                            </div>
+                            <div class="text-right">
+                                <p class="text-sm font-medium text-green-600">Open Now</p>
+                                <p class="text-xs text-gray-500">Closes 9:30 PM</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
+                <div class="col-span-1 md:col-span-2">
+                    <div class="flex items-center space-x-3 mb-6">
+                        <div class="w-10 h-10 bg-gradient-to-br from-red-800 to-red-900 rounded-full flex items-center justify-center">
+                            <i data-lucide="crown" class="w-6 h-6 text-yellow-400"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-display text-xl font-bold">Triple Crown</h3>
+                            <p class="text-xs text-gray-400">RESTAURANT & COFFEE BAR</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-400 leading-relaxed mb-6 max-w-md">
+                        Your perfect highway stop in Dhulikhel. Serving delicious multi-cuisine food, refreshing coffee, and warm Nepali hospitality since establishment.
+                    </p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-red-900 transition-colors">
+                            <i data-lucide="facebook" class="w-5 h-5"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-red-900 transition-colors">
+                            <i data-lucide="instagram" class="w-5 h-5"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-red-900 transition-colors">
+                            <i data-lucide="tripadvisor" class="w-5 h-5"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div>
+                    <h4 class="font-semibold text-lg mb-6">Quick Links</h4>
+                    <ul class="space-y-3">
+                        <li><a href="#about" class="text-gray-400 hover:text-white transition-colors">About Us</a></li>
+                        <li><a href="#menu" class="text-gray-400 hover:text-white transition-colors">Our Menu</a></li>
+                        <li><a href="#reviews" class="text-gray-400 hover:text-white transition-colors">Reviews</a></li>
+                        <li><a href="#location" class="text-gray-400 hover:text-white transition-colors">Location</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="font-semibold text-lg mb-6">Services</h4>
+                    <ul class="space-y-3">
+                        <li class="flex items-center space-x-2 text-gray-400">
+                            <i data-lucide="check" class="w-4 h-4 text-green-500"></i>
+                            <span>Dine-in</span>
+                        </li>
+                        <li class="flex items-center space-x-2 text-gray-400">
+                            <i data-lucide="check" class="w-4 h-4 text-green-500"></i>
+                            <span>Takeaway</span>
+                        </li>
+                        <li class="flex items-center space-x-2 text-gray-400">
+                            <i data-lucide="check" class="w-4 h-4 text-green-500"></i>
+                            <span>Delivery</span>
+                        </li>
+                        <li class="flex items-center space-x-2 text-gray-400">
+                            <i data-lucide="check" class="w-4 h-4 text-green-500"></i>
+                            <span>Group Dining</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-800 pt-8 flex flex-col md:flex-row justify-between items-center">
+                <p class="text-gray-500 text-sm">© 2026 Triple Crown Restaurant & Coffee Bar. All rights reserved.</p>
+                <p class="text-gray-600 text-sm mt-2 md:mt-0">Dhulikhel, Nepal · JHC3+59</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Initialize Lucide Icons
+        lucide.createIcons();
+        
+        // Menu Data
+        const menuItems = [
+            { id: 1, name: "Chicken Biryani", category: "specials", price: "Rs 350", description: "Aromatic basmati rice with tender chicken and signature spices. Our most popular dish!", rating: 5.0, image: "https://images.unsplash.com/photo-1563379091339-03b21ab4a4f8?q=80&w=800&auto=format&fit=crop", badge: "Best Seller" },
+            { id: 2, name: "Russian Salad", category: "specials", price: "Rs 250", description: "Fresh mixed vegetables with creamy dressing. A refreshing favorite among travelers.", rating: 4.8, image: "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?q=80&w=800&auto=format&fit=crop", badge: "Recommended" },
+            { id: 3, name: "Chicken Wings", category: "mains", price: "Rs 400", description: "Surprisingly big portions with crispy coating and flavorful spices.", rating: 4.7, image: "https://images.unsplash.com/photo-1567620832903-9fc6debc209f?q=80&w=800&auto=format&fit=crop", badge: "Large Portion" },
+            { id: 4, name: "Nepali Veg Thali", category: "mains", price: "Rs 300", description: "Traditional Nepali meal with rice, dal, seasonal vegetables, and pickles.", rating: 4.5, image: "https://images.unsplash.com/photo-1585937421612-70a008356fbe?q=80&w=800&auto=format&fit=crop", badge: "Traditional" },
+            { id: 5, name: "Plain Omelet & Toast", category: "breakfast", price: "Rs 150", description: "Classic breakfast with butter, jam, and your choice of tea or coffee.", rating: 4.3, image: "https://images.unsplash.com/photo-1525351484163-7529414395d8?q=80&w=800&auto=format&fit=crop", badge: "Breakfast" },
+            { id: 6, name: "Aloo Jeera", category: "breakfast", price: "Rs 120", description: "Cumin potatoes, a perfect vegetarian side dish with authentic flavor.", rating: 4.2, image: "https://images.unsplash.com/photo-1606491956689-2ea866880c84?q=80&w=800&auto=format&fit=crop", badge: "Veg" },
+            { id: 7, name: "Special Coffee", category: "beverages", price: "Rs 120", description: "Freshly brewed coffee to energize your journey through the mountains.", rating: 4.0, image: "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?q=80&w=800&auto=format&fit=crop", badge: "Hot" },
+            { id: 8, name: "Momo (Dumplings)", category: "mains", price: "Rs 200", description: "Steamed or fried Nepali dumplings served with spicy tomato chutney.", rating: 4.4, image: "https://images.unsplash.com/photo-1534422298391-e4f8c172dddb?q=80&w=800&auto=format&fit=crop", badge: "Nepali" },
+            { id: 9, name: "Special Chicken Timbure", category: "specials", price: "Rs 450", description: "Chicken cooked in traditional Sichuan pepper style with local herbs.", rating: 4.6, image: "https://images.unsplash.com/photo-1604908176997-125f25cc6f3d?q=80&w=800&auto=format&fit=crop", badge: "Chef's Special" }
+        ];
+        
+        // Reviews Data
+        const reviews = [
+            { name: "Sarah M.", rating: 5, date: "2 weeks ago", text: "I stayed in Dhulikhel for 6 weeks and had meals here most of the time. Their food was extremely tasty and eye-catching. The staff was nice and helpful. I enjoyed the Russian Salad really much!", avatar: "S" },
+            { name: "Rahul K.", rating: 5, date: "1 month ago", text: "A friend recommended this place and I am very thankful to her. I went there to try their Biryani and the taste was amazing. Once you had their biryani you will not forget the taste. The chicken wings were surprisingly big!", avatar: "R" },
+            { name: "Travel Group", rating: 4, date: "2 months ago", text: "We stopped by here on the way to Pokhara for a coffee break. The property looks good and well maintained. If maintained well, it will be a good competitor for other highway stops. Nice place for quick snacks.", avatar: "T" },
+            { name: "Mike T.", rating: 4, date: "3 months ago", text: "Nice place in Dhulikhel area. Good ambience and fair pricing. The staff was friendly and the service was quick. Perfect for a highway break before continuing your journey.", avatar: "M" }
+        ];
+        
+        let currentReview = 0;
+        let currentCategory = 'all';
+        
+        // Initialize Menu
+        function renderMenu(category) {
+            const grid = document.getElementById('menuGrid');
+            const filtered = category === 'all' ? menuItems : menuItems.filter(item => item.category === category);
+            
+            grid.innerHTML = filtered.map(item => `
+                <div class="menu-card bg-white rounded-2xl overflow-hidden shadow-lg border border-gray-100 group">
+                    <div class="relative h-48 overflow-hidden">
+                        <img src="${item.image}" alt="${item.name}" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+                        <div class="absolute top-3 right-3 price-tag text-white px-3 py-1 rounded-full text-sm font-bold shadow-lg">
+                            ${item.price}
+                        </div>
+                        ${item.badge ? `<div class="absolute top-3 left-3 bg-white/90 backdrop-blur-sm text-red-900 px-3 py-1 rounded-full text-xs font-bold shadow-sm">${item.badge}</div>` : ''}
+                    </div>
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="font-display text-xl font-bold text-gray-900">${item.name}</h3>
+                            <div class="flex items-center space-x-1">
+                                <i data-lucide="star" class="w-4 h-4 text-yellow-400 fill-yellow-400"></i>
+                                <span class="text-sm font-semibold text-gray-700">${item.rating}</span>
+                            </div>
+                        </div>
+                        <p class="text-gray-600 text-sm mb-4 line-clamp-2">${item.description}</p>
+                        <div class="flex items-center justify-between">
+                            <span class="text-xs text-gray-500 uppercase tracking-wider font-medium">${item.category}</span>
+                            <button class="text-red-900 font-medium text-sm hover:underline flex items-center">
+                                Order <i data-lucide="arrow-right" class="w-4 h-4 ml-1"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+            
+            lucide.createIcons();
+        }
+        
+        // Switch Menu Category
+        function switchMenu(category) {
+            currentCategory = category;
+            
+            // Update tabs
+            document.querySelectorAll('.menu-tab').forEach(tab => {
+                if (tab.dataset.category === category) {
+                    tab.classList.add('tab-active');
+                    tab.classList.remove('bg-gray-100', 'text-gray-700');
+                } else {
+                    tab.classList.remove('tab-active');
+                    tab.classList.add('bg-gray-100', 'text-gray-700');
+                }
+            });
+            
+            // Animate and render
+            const grid = document.getElementById('menuGrid');
+            grid.style.opacity = '0';
+            grid.style.transform = 'translateY(20px)';
+            grid.style.transition = 'all 0.3s ease';
+            
+            setTimeout(() => {
+                renderMenu(category);
+                grid.style.opacity = '1';
+                grid.style.transform = 'translateY(0)';
+            }, 300);
+        }
+        
+        // Render Review
+        function renderReview(index) {
+            const review = reviews[index];
+            const container = document.getElementById('reviewContainer');
+            
+            container.innerHTML = `
+                <div class="review-card animate-fade-in-up">
+                    <div class="flex items-center space-x-4 mb-6">
+                        <div class="w-14 h-14 rounded-full bg-gradient-to-br from-red-900 to-red-700 flex items-center justify-center text-white font-bold text-xl shadow-lg">
+                            ${review.avatar}
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-gray-900 text-lg">${review.name}</h4>
+                            <div class="flex items-center space-x-2">
+                                <div class="flex star-rating">
+                                    ${Array(5).fill(0).map((_, i) => `
+                                        <i data-lucide="star" class="w-4 h-4 ${i < review.rating ? 'fill-current' : 'text-gray-300'}"></i>
+                                    `).join('')}
+                                </div>
+                                <span class="text-sm text-gray-500">· ${review.date}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <blockquote class="text-xl md:text-2xl text-gray-700 font-light leading-relaxed italic">
+                        "${review.text}"
+                    </blockquote>
+                    <div class="mt-6 flex items-center space-x-2 text-sm text-gray-500">
+                        <i data-lucide="shield-check" class="w-4 h-4 text-green-500"></i>
+                        <span>Verified Visit</span>
+                    </div>
+                </div>
+            `;
+            
+            lucide.createIcons();
+        }
+        
+        function nextReview() {
+            currentReview = (currentReview + 1) % reviews.length;
+            renderReview(currentReview);
+        }
+        
+        function prevReview() {
+            currentReview = (currentReview - 1 + reviews.length) % reviews.length;
+            renderReview(currentReview);
+        }
+        
+        // Auto-rotate reviews
+        setInterval(nextReview, 6000);
+        
+        // Mobile Menu Toggle
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobileMenu');
+            menu.classList.toggle('hidden');
+        }
+        
+        // Scroll to Reserve
+        function scrollToReserve() {
+            document.getElementById('location').scrollIntoView({ behavior: 'smooth' });
+        }
+        
+        // Share Location
+        function shareLocation() {
+            if (navigator.share) {
+                navigator.share({
+                    title: 'Triple Crown Restaurant',
+                    text: 'Visit Triple Crown Restaurant & Coffee Bar in Dhulikhel!',
+                    url: 'https://maps.google.com/?q=Triple+Crown+Restaurant+Dhulikhel'
+                });
+            } else {
+                alert('Location: Dhulikhel Chowk, Dhulikhel 45200, Nepal\nPlus Code: JHC3+59');
+            }
+        }
+        
+        // Check Business Hours
+        function checkHours() {
+            const now = new Date();
+            const hour = now.getHours();
+            const isOpen = hour >= 6 && hour < 21; // 6:30 AM to 9:30 PM approx
+            
+            const statusText = document.getElementById('statusText');
+            const hoursStatus = document.getElementById('hoursStatus');
+            
+            if (isOpen) {
+                const hoursLeft = 21 - hour;
+                statusText.textContent = `Open Now · Closes 9:30 PM (${hoursLeft}h left)`;
+                hoursStatus.textContent = 'Currently Open';
+                hoursStatus.className = 'text-xs text-green-600 font-medium mt-1';
+            } else {
+                statusText.textContent = 'Closed Now · Opens 6:30 AM';
+                hoursStatus.textContent = 'Currently Closed';
+                hoursStatus.className = 'text-xs text-red-600 font-medium mt-1';
+            }
+        }
+        
+        // Navbar Scroll Effect
+        window.addEventListener('scroll', () => {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('shadow-md');
+            } else {
+                navbar.classList.remove('shadow-md');
+            }
+        });
+        
+        // Smooth Scroll for Anchor Links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    // Close mobile menu if open
+                    document.getElementById('mobileMenu').classList.add('hidden');
+                }
+            });
+        });
+        
+        // Initialize
+        renderMenu('all');
+        renderReview(0);
+        checkHours();
+        
+        // Update hours every minute
+        setInterval(checkHours, 60000);
+    </script>
+</body>
+</html>
