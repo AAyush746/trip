@@ -134,7 +134,7 @@
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="flex justify-between items-center h-20">
                     <div class="flex items-center space-x-3">
-                        <div class="w-10 h-10 rounded-full overflow-hidden flex items-center justify-center shadow-lg bg-white">
+                        <div class="w-14 h-14 rounded-full overflow-hidden flex items-center justify-center shadow-lg bg-white">
                             <img src="logo.png" alt="Triple Crown logo" class="w-full h-full object-cover">
                         </div>
                         <div>
@@ -519,7 +519,7 @@
             <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
                 <div class="col-span-1 md:col-span-2">
                     <div class="flex items-center space-x-3 mb-6">
-                        <div class="w-10 h-10 rounded-full overflow-hidden flex items-center justify-center bg-white">
+                            <div class="w-14 h-14 rounded-full overflow-hidden flex items-center justify-center bg-white">
                                 <img src="logo.png" alt="Triple Crown logo" class="w-full h-full object-cover">
                             </div>
                         <div>
@@ -588,16 +588,61 @@
         lucide.createIcons();
         
         // Menu Data
+        // Menu items extracted and cleaned from the attached PDF (prices kept as strings when multiple options exist)
         const menuItems = [
-            { id: 1, name: "Chicken Biryani", category: "specials", price: "Rs 350", description: "Aromatic basmati rice with tender chicken and signature spices. Our most popular dish!", rating: 5.0, image: "https://images.unsplash.com/photo-1563379091339-03b21ab4a4f8?q=80&w=800&auto=format&fit=crop", badge: "Best Seller" },
-            { id: 2, name: "Russian Salad", category: "specials", price: "Rs 250", description: "Fresh mixed vegetables with creamy dressing. A refreshing favorite among travelers.", rating: 4.8, image: "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?q=80&w=800&auto=format&fit=crop", badge: "Recommended" },
-            { id: 3, name: "Chicken Wings", category: "mains", price: "Rs 400", description: "Surprisingly big portions with crispy coating and flavorful spices.", rating: 4.7, image: "https://images.unsplash.com/photo-1567620832903-9fc6debc209f?q=80&w=800&auto=format&fit=crop", badge: "Large Portion" },
-            { id: 4, name: "Nepali Veg Thali", category: "mains", price: "Rs 300", description: "Traditional Nepali meal with rice, dal, seasonal vegetables, and pickles.", rating: 4.5, image: "https://images.unsplash.com/photo-1585937421612-70a008356fbe?q=80&w=800&auto=format&fit=crop", badge: "Traditional" },
-            { id: 5, name: "Plain Omelet & Toast", category: "breakfast", price: "Rs 150", description: "Classic breakfast with butter, jam, and your choice of tea or coffee.", rating: 4.3, image: "https://images.unsplash.com/photo-1525351484163-7529414395d8?q=80&w=800&auto=format&fit=crop", badge: "Breakfast" },
-            { id: 6, name: "Aloo Jeera", category: "breakfast", price: "Rs 120", description: "Cumin potatoes, a perfect vegetarian side dish with authentic flavor.", rating: 4.2, image: "https://images.unsplash.com/photo-1606491956689-2ea866880c84?q=80&w=800&auto=format&fit=crop", badge: "Veg" },
-            { id: 7, name: "Special Coffee", category: "beverages", price: "Rs 120", description: "Freshly brewed coffee to energize your journey through the mountains.", rating: 4.0, image: "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?q=80&w=800&auto=format&fit=crop", badge: "Hot" },
-            { id: 8, name: "Momo (Dumplings)", category: "mains", price: "Rs 200", description: "Steamed or fried Nepali dumplings served with spicy tomato chutney.", rating: 4.4, image: "https://images.unsplash.com/photo-1534422298391-e4f8c172dddb?q=80&w=800&auto=format&fit=crop", badge: "Nepali" },
-            { id: 9, name: "Special Chicken Timbure", category: "specials", price: "Rs 450", description: "Chicken cooked in traditional Sichuan pepper style with local herbs.", rating: 4.6, image: "https://images.unsplash.com/photo-1604908176997-125f25cc6f3d?q=80&w=800&auto=format&fit=crop", badge: "Chef's Special" }
+            { id: 1, name: "Classic Breakfast", category: "breakfast", price: "NPR 400", description: "Toast, saute potato, choice of eggs, seasonal fruits with tea or coffee.", rating: 4.2, image: "", badge: "" },
+            { id: 2, name: "American Breakfast", category: "breakfast", price: "NPR 450", description: "Toast with butter & jam, sunny side up egg, grilled sausage, tomato, saute potato, seasonal fruits with tea or coffee.", rating: 4.3, image: "", badge: "" },
+            { id: 3, name: "Triple Crown Special Breakfast", category: "breakfast", price: "NPR 500", description: "Scrambled egg, pancake with honey or toast, saute potato, grilled ham and tomato, seasonal fruits with tea or coffee.", rating: 4.6, image: "", badge: "Special" },
+            { id: 4, name: "Fitness Breakfast", category: "breakfast", price: "NPR 400", description: "Muesli/granola with fruits and yoghurt and a glass of juice.", rating: 4.1, image: "", badge: "" },
+            { id: 5, name: "Plain Toast with Butter & Jam", category: "breakfast", price: "NPR 120", description: "A la carte.", rating: 4.0, image: "", badge: "" },
+            { id: 6, name: "Choice of Two Eggs", category: "breakfast", price: "NPR 130", description: "Omelet/Boiled/Fried/Scrambled/Sunny.", rating: 4.0, image: "", badge: "" },
+            { id: 7, name: "Pancake with Honey", category: "breakfast", price: "NPR 250", description: "A la carte.", rating: 4.0, image: "", badge: "" },
+            { id: 8, name: "Grilled or Fried Sausage (Buff/Chicken)", category: "breakfast", price: "NPR 50/60", description: "", rating: 4.0, image: "", badge: "" },
+
+            // Starters / Veg
+            { id: 20, name: "Chips Chilly / Paneer Chilli / Mushroom Chilli", category: "starters", price: "NPR 250/330/280/380", description: "Indo-Chinese style starters.", rating: 4.2, image: "", badge: "" },
+            { id: 21, name: "Spicy Corn", category: "starters", price: "NPR 230", description: "Fried corn with spicy buttery seasoning.", rating: 4.0, image: "", badge: "" },
+            { id: 22, name: "Peanuts / Wai Wai Sadheko / Masala Papad", category: "starters", price: "NPR 160/200", description: "Light snacks.", rating: 4.0, image: "", badge: "" },
+            { id: 23, name: "Cheese Balls (10 pcs)", category: "starters", price: "NPR 340", description: "Crispy cheese balls.", rating: 4.1, image: "", badge: "" },
+            { id: 24, name: "Veg Pakoda / Paneer Pakoda", category: "starters", price: "NPR 230/320", description: "Crispy fried pakoda.", rating: 4.0, image: "", badge: "" },
+            { id: 25, name: "Onion Rings", category: "starters", price: "NPR 210", description: "Deep fried battered onion rings.", rating: 4.0, image: "", badge: "" },
+            { id: 26, name: "French Fries", category: "starters", price: "NPR 200", description: "Classic fries.", rating: 4.0, image: "", badge: "" },
+
+            // Non-veg starters
+            { id: 30, name: "Chicken Chilli (Bone/Boneless)", category: "starters", price: "NPR 300/350", description: "Indo-Chinese spicy chicken chilli.", rating: 4.3, image: "", badge: "" },
+            { id: 31, name: "Buff Chilly / Pork Chilly / Fish Chilly", category: "starters", price: "NPR 300/380/280/380", description: "Spicy fried meat options.", rating: 4.2, image: "", badge: "" },
+            { id: 32, name: "Chicken Lollipop / Spicy Wings", category: "starters", price: "NPR 320", description: "Marinated wings/lollipops (6pcs/3pcs).", rating: 4.3, image: "", badge: "" },
+            { id: 33, name: "Fish/Chicken Nuggets / Chicken Basket", category: "starters", price: "NPR 370/380/330", description: "Crispy fried nuggets with mayo.", rating: 4.0, image: "", badge: "" },
+            { id: 34, name: "Chicken Meat Balls", category: "starters", price: "NPR 400", description: "Fried meat balls.", rating: 4.0, image: "", badge: "" },
+
+            // Mains & Rice
+            { id: 40, name: "Our Famous Biryani (Veg/Chicken)", category: "mains", price: "NPR 280/330", description: "Flavored biryani options.", rating: 4.5, image: "", badge: "Best Seller" },
+            { id: 41, name: "Paneer / Chicken Butter Masala", category: "mains", price: "NPR 350", description: "Rich curry served with rice or roti.", rating: 4.4, image: "", badge: "" },
+            { id: 42, name: "Nepali Style Curry (Veg/Chicken)", category: "mains", price: "NPR 280/340", description: "Local curry preparations.", rating: 4.2, image: "", badge: "" },
+            { id: 43, name: "Manchurian with Rice (Veg/Non-Veg)", category: "mains", price: "NPR 280/340", description: "Manchurian served with rice.", rating: 4.1, image: "", badge: "" },
+            { id: 44, name: "Fried Rice (Veg/Egg/Buff/Chicken/Mixed)", category: "mains", price: "NPR 190/220/220/250/300", description: "Fried rice variants.", rating: 4.1, image: "", badge: "" },
+            { id: 45, name: "Chicken Chop", category: "mains", price: "NPR 550", description: "Grilled chicken chop.", rating: 4.3, image: "", badge: "" },
+            { id: 46, name: "Chicken Sizzler", category: "mains", price: "NPR 480", description: "Sizzling chicken platter.", rating: 4.2, image: "", badge: "" },
+
+            // Pizza / Pasta / Sandwiches
+            { id: 60, name: "Margherita Pizza", category: "mains", price: "NPR 490", description: "Classic margherita pizza.", rating: 4.1, image: "", badge: "" },
+            { id: 61, name: "Mixed Veg / Chicken Pizza", category: "mains", price: "NPR 460/500", description: "Loaded pizzas.", rating: 4.2, image: "", badge: "" },
+            { id: 62, name: "Club Sandwich", category: "mains", price: "NPR 270/300", description: "Club sandwich options.", rating: 4.0, image: "", badge: "" },
+
+            // Beverages & Coffee
+            { id: 80, name: "Espresso", category: "beverages", price: "NPR 170", description: "Single shot espresso.", rating: 4.0, image: "", badge: "" },
+            { id: 81, name: "Iced Latte / Iced Cappuccino", category: "beverages", price: "NPR 180", description: "Iced coffee options.", rating: 4.0, image: "", badge: "" },
+            { id: 82, name: "Iced Mocha", category: "beverages", price: "NPR 220", description: "Iced mocha.", rating: 4.0, image: "", badge: "" },
+            { id: 83, name: "Hot Chocolate", category: "beverages", price: "NPR 170", description: "Hot chocolate drink.", rating: 4.0, image: "", badge: "" },
+            { id: 84, name: "Masala Tea", category: "beverages", price: "NPR 80", description: "Spiced tea.", rating: 4.0, image: "", badge: "" },
+            { id: 85, name: "Black Tea", category: "beverages", price: "NPR 50", description: "Classic black tea.", rating: 4.0, image: "", badge: "" },
+            { id: 86, name: "Ginger Tea", category: "beverages", price: "NPR 60", description: "Ginger infused tea.", rating: 4.0, image: "", badge: "" },
+            { id: 87, name: "Lemon Tea", category: "beverages", price: "NPR 60", description: "Lemon tea.", rating: 4.0, image: "", badge: "" },
+
+            // Juices & Shakes
+            { id: 100, name: "Banana Shake", category: "beverages", price: "NPR 200", description: "Banana shake.", rating: 4.0, image: "", badge: "" },
+            { id: 101, name: "Mango Shake", category: "beverages", price: "NPR 220", description: "Mango shake.", rating: 4.0, image: "", badge: "" },
+            { id: 102, name: "Strawberry Shake", category: "beverages", price: "NPR 230", description: "Strawberry shake.", rating: 4.0, image: "", badge: "" },
         ];
         
         // Reviews Data
@@ -745,6 +790,17 @@
                 });
             } else {
                 alert('Location: Dhulikhel Chowk, Dhulikhel 45200, Nepal\nPlus Code: JHC3+59');
+            }
+        }
+
+        // Toggle embedded menu PDF viewer
+        function toggleMenuPdf() {
+            const container = document.getElementById('menuPdfContainer');
+            if (!container) return;
+            container.classList.toggle('hidden');
+            // smooth scroll into view when opening
+            if (!container.classList.contains('hidden')) {
+                container.scrollIntoView({ behavior: 'smooth', block: 'center' });
             }
         }
         
