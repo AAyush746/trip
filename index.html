@@ -586,8 +586,17 @@
     <script>
         // Initialize Lucide Icons
         lucide.createIcons();
-    // Default fallback image for menu items without a specific image
-    const defaultMenuImage = "https://images.unsplash.com/photo-1544025162-d76694265947?q=80&w=1200&auto=format&fit=crop&ixlib=rb-4.0.3&s=placeholder";
+        // Default fallback image for menu items without a specific image
+        const defaultMenuImage = "https://images.unsplash.com/photo-1544025162-d76694265947?q=80&w=1200&auto=format&fit=crop&ixlib=rb-4.0.3&s=placeholder";
+
+        // Return an image URL for a menu item: prefer provided image, otherwise use Unsplash query based on the item name
+        function menuImageFor(item) {
+            if (item.image && item.image.trim().length > 0) return item.image;
+            // Use source.unsplash.com to get a representative photo for the dish.
+            // Add item.id as a signature to get varied images across items and avoid caching identical results.
+            const query = encodeURIComponent((item.name || 'food') + ' food');
+            return `https://source.unsplash.com/800x600/?${query}&sig=${item.id}`;
+        }
         
         // Menu Data
         // Menu items extracted and cleaned from the attached PDF (prices kept as strings when multiple options exist)
@@ -666,7 +675,7 @@
             grid.innerHTML = filtered.map(item => `
                 <div class="menu-card bg-white rounded-2xl overflow-hidden shadow-lg border border-gray-100 group">
                     <div class="relative h-48 overflow-hidden bg-gray-100">
-                        <img src="${item.image || defaultMenuImage}" alt="${item.name}" loading="lazy" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+                        <img src="${menuImageFor(item)}" alt="${item.name}" loading="lazy" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
                         <div class="absolute top-3 right-3 price-tag text-white px-3 py-1 rounded-full text-sm font-bold shadow-lg">
                             ${item.price}
                         </div>
